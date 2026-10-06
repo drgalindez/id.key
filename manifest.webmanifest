@@ -1,0 +1,12 @@
+{
+  "name": "BI 306 Tree ID Key",
+  "short_name": "Tree ID Key",
+  "description": "Mobile tree identification key based on the supplied BI 306 All-Season Tree ID guide.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbfaf6",
+  "theme_color": "#173f35",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

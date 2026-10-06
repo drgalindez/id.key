@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <meta name="description" content="BI 306 mobile tree identification key based on the supplied All-Season Tree ID guide.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>BI 306 · Tree ID Key</title>
+  <style>
+    :root{
+      --ink:#17211d; --muted:#64706a; --paper:#fbfaf6; --card:#fffefb;
+      --green:#1d5a45; --green-2:#2f765b; --green-soft:#e7f0eb;
+      --blue:#2d5f86; --blue-soft:#e8f0f6; --red:#a44a3f; --line:#d9ddd7;
+      --shadow:0 14px 36px rgba(23,33,29,.08); --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--paper);scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:var(--paper);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+    button{font:inherit}
+    .wrap{width:min(720px,100%);margin:0 auto;padding:0 18px 34px}
+    header{padding:26px 0 18px;border-bottom:1px solid var(--line)}
+    .eyebrow{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:var(--green);font-weight:750}
+    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.12;margin:0}
+    h1{font-size:clamp(2.2rem,10vw,4rem);font-weight:500;letter-spacing:-.035em;margin-top:5px}
+    .dek{margin:10px 0 0;color:var(--muted);font-size:1rem;max-width:58ch}
+    .topbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.78rem;color:var(--muted);background:#fff}
+    main{padding-top:20px}
+    .progress{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+    .progress-track{height:5px;background:#e2e6e1;border-radius:999px;overflow:hidden;flex:1}
+    .progress-fill{height:100%;width:0;background:var(--green);border-radius:999px;transition:width .25s ease}
+    .progress-text{font-size:.76rem;color:var(--muted);white-space:nowrap}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    .question-kicker{color:var(--blue);font-weight:750;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .question{font-size:clamp(1.7rem,7vw,2.35rem);font-weight:500}
+    .hint{margin:10px 0 0;color:var(--muted)}
+    .choices{display:grid;gap:11px;margin-top:20px}
+    .choice{position:relative;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:16px 48px 16px 16px;cursor:pointer;color:var(--ink);transition:.16s ease;min-height:70px}
+    .choice:hover{border-color:#9bb3a7;transform:translateY(-1px)}
+    .choice:active{transform:translateY(0)}
+    .choice strong{display:block;font-size:1rem}
+    .choice span{display:block;margin-top:3px;color:var(--muted);font-size:.9rem}
+    .arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:1.35rem;color:var(--green)}
+    .actions{display:flex;gap:9px;margin-top:18px}
+    .btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:700;font-size:.9rem}
+    .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+    .btn:disabled{opacity:.4;cursor:not-allowed}
+    .result{border-left:4px solid var(--green);padding-left:16px}
+    .result .latin{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--green);font-size:1.08rem;margin-top:4px}
+    .result .species{font-size:clamp(2rem,9vw,3rem);font-weight:500;margin-top:2px}
+    .tagrow{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 2px}
+    .tag{background:var(--green-soft);color:var(--green);border-radius:999px;padding:6px 9px;font-size:.76rem;font-weight:750}
+    .section{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+    .section h3{font-size:1.2rem;font-weight:500}
+    ul{padding-left:20px;margin:9px 0 0}
+    li+li{margin-top:6px}
+    .source-note{font-size:.78rem;color:var(--muted);margin-top:18px}
+    .all-species{margin-top:22px}
+    details{border-top:1px solid var(--line);padding:12px 0}
+    summary{cursor:pointer;font-weight:750;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    summary:after{content:'+';float:right;color:var(--green);font-size:1.2rem}
+    details[open] summary:after{content:'−'}
+    .species-list{display:grid;gap:7px;margin-top:12px}
+    .species-item{padding:10px 12px;background:#f4f5f1;border-radius:10px;font-size:.9rem}
+    .species-item em{font-family:Georgia,serif;color:var(--green)}
+    .empty{text-align:center;padding:18px 0}
+    .leafmark{width:58px;height:58px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;margin-bottom:16px;font-size:1.7rem}
+    .footer{margin-top:20px;padding:20px 2px 0;color:var(--muted);font-size:.76rem;text-align:center}
+    .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (min-width:680px){.wrap{padding-left:28px;padding-right:28px}.card{padding:30px}.choices{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">Boston University · BI 306</div>
+      <h1>Tree ID Key</h1>
+      <p class="dek">A mobile-first identification key for the trees in the supplied All-Season Tree ID guide.</p>
+      <div class="topbar"><span class="pill">11 species</span><span class="pill">Leaf · bark · fruit</span><span class="pill">No login required</span></div>
+    </header>
+
+    <main id="app" aria-live="polite"></main>
+    <div class="footer">Educational key based on the supplied BI 306 PDF. Use multiple traits when possible; this is not a comprehensive field guide.</div>
+  </div>
+
+<script>
+const species = {
+  blackCherry:{name:'Black Cherry',latin:'Prunus serotina',tags:['broadleaf','serrated leaves','dark/scaly bark'],facts:[
+    'Leaves are elliptical with finely serrated edges; shiny dark green above and light green with a hairy midvein underneath.',
+    'Fruits are dark and roughly pea-sized.',
+    'Young trunks are dark brownish gray and can be shiny with striations; older trunks are scaly and dark gray.'
+  ]},
+  whitePine:{name:'Eastern White Pine',latin:'Pinus strobus',tags:['needle','5 needles/bundle','long cones'],facts:[
+    'Needles are long, flexible, thin and soft, medium green, and occur 5 needles per bundle.',
+    'Cones are slender, tapering and thornless, about 3–10 inches long.',
+    'Mature bark is dark grayish-brown with broad ridges and deep furrows; the guide notes it is not scaly.'
+  ]},
+  redMaple:{name:'Red Maple',latin:'Acer rubrum',tags:['lobed','3–5 lobes','V-shaped notches'],facts:[
+    'Leaves have 3–5 main lobes, slightly serrated margins, shallow V-shaped notches, and pointy lobe bases.',
+    'Fruit is a V-shaped samara.',
+    'Young bark is smooth and gray; older bark is dark and rough with peeling flakes.'
+  ]},
+  yellowBirch:{name:'Yellow Birch',latin:'Betula alleghaniensis',tags:['birch','doubly toothed','bronze bark'],facts:[
+    'Leaves are simple, alternate and ovate, about 3–5 inches long, with doubly toothed margins.',
+    'Bark peels in small curls and is reddish brown to bronze with long horizontal lenticels.',
+    'Fruit is an erect, very short-stalked cone made of small winged nuts and scales.'
+  ]},
+  paperBirch:{name:'Paper Birch',latin:'Betula papyrifera',tags:['birch','very white bark','drooping catkins'],facts:[
+    'Leaves are simple, alternate, dark green and oval with double-serrated margins; they turn yellow in fall.',
+    'Bark is clear, very white and peels readily, with narrow horizontal stripes and prominent black lenticels/marks with age.',
+    'Fruit is a slender, drooping catkin about 1 inch long.'
+  ]},
+  redOak:{name:'Red Oak',latin:'Quercus rubra',tags:['oak','7–11 lobes','bristle tips'],facts:[
+    'Leaves are alternate and simple with 7–11 moderately lobed, serrated lobes; each lobe has a bristle tip.',
+    'Acorn cup is saucer-shaped and flat.',
+    'Mature bark is dark gray with flat-topped ridges; lower bark can be blocky or furrowed.'
+  ]},
+  whiteOak:{name:'White Oak',latin:'Quercus alba',tags:['oak','rounded lobes','warty acorn cap'],facts:[
+    'Leaves are simple, alternate and lobed, with 7–9 rounded, finger-like lobes.',
+    'Acorns are about 3/4–1 inch long with a thick, warty, bowl-shaped cap covering about 1/4–1/3 of the nut.',
+    'Bark is light gray-brown and covered in thin plates that may occasionally flake.'
+  ]},
+  pinOak:{name:'Pin Oak',latin:'Quercus palustris',tags:['oak','deep U-shaped sinuses','persistent leaves'],facts:[
+    'Leaves are simple and alternate, 3–6 inches long, with 5 or 7 pointed lobes and bristles at the tips.',
+    'Sinuses between lobes are deep and U-shaped; trees hold onto leaves into winter.',
+    'Acorn cup is wide and often striped; the cup can persist on the stem after the acorn detaches.'
+  ]},
+  honeyLocust:{name:'Honey Locust',latin:'Gleditsia triacanthos',tags:['compound leaves','16–20 leaflets','pods'],facts:[
+    'Leaves are compound, pinnate or bipinnate, with small oval leaflets (16–20) arranged alternately.',
+    'Fruit is a long, twisted pod that turns leather brown with brown, bean-shaped seeds.',
+    'Older bark is scaly/cracked with ridges and curling plates; trees may have many stiff thorns.'
+  ]},
+  elm:{name:'American Elm',latin:'Ulmus americana',tags:['simple leaves','doubly serrate','uneven base'],facts:[
+    'Leaves are simple with doubly serrate edges, an uneven base, a pointed tip, and V-venation.',
+    'Bark is grayish, often with white streaks, with long furrowed ridges; the guide describes a “bacon” pattern in cross-section.',
+    'Fruit is a small, papery disk-like samara with hairs and a notch at the top.'
+  ]},
+  sassafras:{name:'Common Sassafras',latin:'Sassafras albidum',tags:['variable leaf shapes','fragrant','3 leaf forms'],facts:[
+    'Leaves may be unlobed, 2-lobed (mitten-shaped), or 3-lobed (trident-shaped), and all three shapes may occur on the same branch.',
+    'Leaves are alternate, simple, ovate to elliptical, 3–6 inches long and fragrant when crushed.',
+    'Fruit is a dark shiny blue ovoid drupe in a red cup on a red stalk; bark is rough, red-brown and deeply furrowed.'
+  ]}
+};
+
+const app=document.getElementById('app');
+let history=[];
+let step={id:'start',title:'What are you looking at?',hint:'Begin with the easiest split: needles or broad leaves.',choices:[
+  {label:'Needles',desc:'Long, flexible needles rather than broad leaf blades.',next:'pine'},
+  {label:'Broad leaves',desc:'A broad leaf blade, including compound leaves.',next:'compound'}
+]};
+
+const steps={
+ pine:{title:'How are the needles grouped?',hint:'Count the needles in one bundle.',choices:[
+  {label:'5 needles per bundle',desc:'Needles are thin, soft, flexible and about 3–6 inches long.',result:'whitePine'},
+  {label:'Not 5 per bundle / unsure',desc:'This guide only describes one needle-bearing species.',next:'unsupportedNeedle'}
+ ]},
+ compound:{title:'Is the leaf compound?',hint:'Look for multiple leaflets attached to a single leaf structure.',choices:[
+  {label:'Yes — compound',desc:'Many small leaflets make up one leaf.',result:'honeyLocust'},
+  {label:'No — simple leaf',desc:'One continuous leaf blade.',next:'lobed'}
+ ]},
+ lobed:{title:'Is the leaf clearly lobed?',hint:'If the blade has distinct lobes, choose “Lobed.”',choices:[
+  {label:'Lobed',desc:'Distinct projections divide the leaf blade.',next:'lobeShape'},
+  {label:'Not clearly lobed',desc:'Mostly one continuous blade.',next:'unlobed'}
+ ]},
+ lobeShape:{title:'What do the lobes and sinuses look like?',hint:'Focus on lobe tips and the depth/shape of the spaces between lobes.',choices:[
+  {label:'Rounded lobes',desc:'7–9 rounded, finger-like lobes; no bristle tips.',result:'whiteOak'},
+  {label:'Pointed / bristle-tipped lobes',desc:'Lobes end in points or bristles.',next:'pointedOakMaple'}
+ ]},
+ pointedOakMaple:{title:'Which pointed-lobe pattern fits best?',hint:'Compare lobe count, notches/sinuses, and winter leaf retention.',choices:[
+  {label:'Deep U-shaped sinuses; 5 or 7 lobes',desc:'Bristled tips; leaves may persist into winter.',result:'pinOak'},
+  {label:'3–5 lobes; shallow V-shaped notches',desc:'Lobe bases are pointy; margins are slightly serrated.',result:'redMaple'},
+  {label:'7–11 lobes; each lobe has a bristle tip',desc:'Leaves are moderately lobed and serrated.',result:'redOak'}
+ ]},
+ unlobed:{title:'Do you see multiple leaf shapes on the same branch?',hint:'Look for unlobed, mitten-shaped and trident-shaped leaves together.',choices:[
+  {label:'Yes — several leaf shapes on one branch',desc:'Unlobed + 2-lobed “mitten” + 3-lobed “trident” leaves.',result:'sassafras'},
+  {label:'No / not sure',desc:'Use leaf edge and base to continue.',next:'simpleEdge'}
+ ]},
+ simpleEdge:{title:'What does the leaf edge and base look like?',hint:'Use the strongest visible combination of traits.',choices:[
+  {label:'Doubly serrated + uneven base',desc:'Pointed tip, V-venation; gray, furrowed bark.',result:'elm'},
+  {label:'Finely serrated, elliptical leaf',desc:'Dark green above; dark/scaly bark on older trees.',result:'blackCherry'},
+  {label:'Birch-like leaf',desc:'Simple, alternate, toothed/serrated leaf; compare bark next.',next:'birchBark'}
+ ]},
+ birchBark:{title:'What does the bark look like?',hint:'Bark is especially useful for separating the two birches in this guide.',choices:[
+  {label:'Very white and peeling',desc:'Clear white bark with black lenticels/marks developing with age.',result:'paperBirch'},
+  {label:'Reddish brown / bronze and peeling in small curls',desc:'Long horizontal lenticels and narrow horizontal lines.',result:'yellowBirch'},
+  {label:'Neither / unsure',desc:'The supplied guide does not provide another birch-like species here.',next:'unsupportedBirch'}
+ ]},
+ unsupportedNeedle:{title:'Outside this key',hint:'The supplied guide only provides one needle-bearing species.',unsupported:true},
+ unsupportedBirch:{title:'Check another trait',hint:'The supplied guide does not support a confident birch identification from the remaining options.',unsupported:true}
+};
+
+function renderHeader(progress){
+  const pct=Math.min(100,Math.round(progress));
+  return `<div class="progress"><div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div><div class="progress-text">${pct}%</div></div>`;
+}
+function renderStep(s){
+  const options=s.choices.map((c,i)=>`<button class="choice" data-choice="${i}"><strong>${c.label}</strong><span>${c.desc}</span><span class="arrow">›</span></button>`).join('');
+  app.innerHTML=`${renderHeader(Math.min(88,history.length*16+8))}<section class="card"><div class="question-kicker">Identification step</div><h2 class="question">${s.title}</h2><p class="hint">${s.hint}</p><div class="choices">${options}</div><div class="actions"><button class="btn" id="back" ${history.length?'':'disabled'}>← Back</button><button class="btn" id="restart">Start over</button></div></section>`;
+  document.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>choose(s.choices[Number(btn.dataset.choice)])));
+  document.getElementById('back').addEventListener('click',back);
+  document.getElementById('restart').addEventListener('click',restart);
+}
+function renderResult(key){
+  const sp=species[key];
+  app.innerHTML=`${renderHeader(100)}<section class="card"><div class="leafmark">❧</div><div class="result"><div class="question-kicker">Likely identification</div><div class="species">${sp.name}</div><div class="latin">${sp.latin}</div><div class="tagrow">${sp.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div><div class="section"><h3>Check these traits</h3><ul>${sp.facts.map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="section"><h3>Want another try?</h3><div class="actions"><button class="btn primary" id="again">Start over</button><button class="btn" id="share">Share key</button></div></div><div class="source-note">Identification follows the supplied BI 306 All-Season Tree ID guide. If multiple traits do not agree, treat this result as uncertain and re-check the key.</div></section><section class="all-species"><details><summary>Browse all 11 species</summary><div class="species-list">${Object.values(species).map(s=>`<div class="species-item"><strong>${s.name}</strong> · <em>${s.latin}</em></div>`).join('')}</div></details></section>`;
+  document.getElementById('again').addEventListener('click',restart);
+  document.getElementById('share').addEventListener('click',shareKey);
+}
+function choose(c){
+  history.push({step,choice:c});
+  if(c.result){renderResult(c.result);return;}
+  step=steps[c.next];
+  renderStep(step);
+}
+function back(){
+  if(!history.length)return;
+  const prev=history.pop(); step=prev.step; renderStep(step);
+}
+function restart(){history=[];step={id:'start',title:'What are you looking at?',hint:'Begin with the easiest split: needles or broad leaves.',choices:[{label:'Needles',desc:'Long, flexible needles rather than broad leaf blades.',next:'pine'},{label:'Broad leaves',desc:'A broad leaf blade, including compound leaves.',next:'compound'}]};renderStep(step);window.scrollTo({top:0,behavior:'smooth'});}
+async function shareKey(){
+  const data={title:'BI 306 Tree ID Key',text:'Try the mobile tree identification key.',url:location.href};
+  try{if(navigator.share){await navigator.share(data)}else{await navigator.clipboard.writeText(location.href);alert('Link copied to clipboard.')}}catch(e){}
+}
+renderStep(step);
+
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
